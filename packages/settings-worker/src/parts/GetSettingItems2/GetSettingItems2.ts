@@ -1,8 +1,9 @@
 import type { SettingItem } from '../SettingItem/SettingItem.ts'
+import type { SettingItemNoValidate } from '../SettingItemNoValidate/SettingItemNoValidate.ts'
 import { getSettingItems } from '../GetSettingItems/GetSettingItems.ts'
 
-const adjustValidation = (items: readonly SettingItem[]): readonly any[] => {
-  const result: any[] = []
+const adjustValidation = (items: readonly SettingItem[]): readonly SettingItemNoValidate[] => {
+  const result: SettingItemNoValidate[] = []
   let validationId = 0
   for (const item of items) {
     validationId++
