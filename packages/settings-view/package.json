@@ -9,7 +9,7 @@
   "license": "MIT",
   "author": "Lvce Editor",
   "type": "module",
-  "main": "src/settingsViewWorkerMain.ts",
+  "main": "src/settingsWorkerWorkerMain.ts",
   "scripts": {
     "build:watch": "cd ../../ && npm run build:watch",
     "dev": "cd ../../ && npm run dev",

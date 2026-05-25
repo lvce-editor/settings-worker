@@ -13,7 +13,7 @@ export const getRemoteUrl = (path) => {
 
 const nodeModulesPath = join(root, 'packages', 'server', 'node_modules')
 
-const workerPath = join(root, '.tmp', 'dist', 'dist', 'settingsViewWorkerMain.js')
+const workerPath = join(root, '.tmp', 'dist', 'dist', 'settingsWorkerWorkerMain.js')
 
 const serverStaticPath = join(nodeModulesPath, '@lvce-editor', 'static-server', 'static')
 
@@ -30,8 +30,8 @@ const content = await readFile(rendererWorkerMainPath, 'utf-8')
 
 const remoteUrl = getRemoteUrl(workerPath)
 if (!content.includes('// const settingsWorkerUrl = ')) {
-  const occurrence = `const settingsWorkerUrl = \`\${assetDir}/packages/settings-worker/dist/settingsViewWorkerMain.js\``
-  const replacement = `// const settingsWorkerUrl = \`\${assetDir}/packages/settings-worker/dist/settingsViewWorkerMain.js\`
+  const occurrence = `const settingsWorkerUrl = \`\${assetDir}/packages/settings-worker/dist/settingsWorkerWorkerMain.js\``
+  const replacement = `// const settingsWorkerUrl = \`\${assetDir}/packages/settings-worker/dist/settingsWorkerWorkerMain.js\`
 const settingsWorkerUrl = \`${remoteUrl}\``
 
   const newContent = content.replace(occurrence, replacement)

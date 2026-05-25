@@ -6,13 +6,13 @@ import { rollup, type RollupOptions } from 'rollup'
 import { root } from './root.ts'
 
 const options: RollupOptions = {
-  input: join(root, 'packages/settings-worker/src/settingsViewWorkerMain.ts'),
+  input: join(root, 'packages/settings-worker/src/settingsWorkerWorkerMain.ts'),
   preserveEntrySignatures: 'strict',
   treeshake: {
     propertyReadSideEffects: false,
   },
   output: {
-    file: join(root, '.tmp/dist/dist/settingsViewWorkerMain.js'),
+    file: join(root, '.tmp/dist/dist/settingsWorkerWorkerMain.js'),
     format: 'es',
     freeze: false,
     generatedCode: {
