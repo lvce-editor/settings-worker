@@ -3,10 +3,14 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 export const name = 'settings.applications-telemetry'
 
 export const test: Test = async ({ expect, Locator, SettingsView }) => {
+  // arrange
   await SettingsView.show()
+
+  // act
   await SettingsView.selectTab('applications')
   await SettingsView.handleInput('telemetry')
 
+  // assert
   const settingsItems = Locator('.SettingsItem')
   await expect(settingsItems).toHaveCount(1)
 
