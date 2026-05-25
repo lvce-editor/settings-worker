@@ -9,7 +9,7 @@ const sharedProcessUrl = pathToFileURL(sharedProcessPath).toString()
 
 const sharedProcess = await import(sharedProcessUrl)
 
-process.env.PATH_PREFIX = '/settings-view'
+process.env.PATH_PREFIX = '/settings-worker'
 const { commitHash } = await sharedProcess.exportStatic({
   root,
   extensionPath: '',
@@ -26,9 +26,9 @@ const content = await readFile(rendererWorkerPath, 'utf8')
 const workerPath = join(root, '.tmp/dist/dist/settingsViewWorkerMain.js')
 const remoteUrl = getRemoteUrl(workerPath)
 
-const occurrence = `// const settingsWorkerUrl = \`\${assetDir}/packages/settings-view/dist/settingsViewWorkerMain.js\`
+const occurrence = `// const settingsWorkerUrl = \`\${assetDir}/packages/settings-worker/dist/settingsViewWorkerMain.js\`
 const settingsWorkerUrl = \`${remoteUrl}\``
-const replacement = `const settingsWorkerUrl = \`\${assetDir}/packages/settings-view/dist/settingsViewWorkerMain.js\``
+const replacement = `const settingsWorkerUrl = \`\${assetDir}/packages/settings-worker/dist/settingsViewWorkerMain.js\``
 if (!content.includes(occurrence)) {
   throw new Error('occurrence not found')
 }

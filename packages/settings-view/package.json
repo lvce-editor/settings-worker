@@ -1,10 +1,10 @@
 {
-  "name": "@lvce-editor/settings-view",
+  "name": "@lvce-editor/settings-worker",
   "version": "0.0.0-dev",
-  "description": "Explorer Worker",
+  "description": "Settings Worker",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lvce-editor/settings-view.git"
+    "url": "git+https://github.com/lvce-editor/settings-worker.git"
   },
   "license": "MIT",
   "author": "Lvce Editor",

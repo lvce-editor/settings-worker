@@ -6,7 +6,7 @@ import { rollup, type RollupOptions } from 'rollup'
 import { root } from './root.ts'
 
 const options: RollupOptions = {
-  input: join(root, 'packages/settings-view/src/settingsViewWorkerMain.ts'),
+  input: join(root, 'packages/settings-worker/src/settingsViewWorkerMain.ts'),
   preserveEntrySignatures: 'strict',
   treeshake: {
     propertyReadSideEffects: false,

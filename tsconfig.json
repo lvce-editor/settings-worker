@@ -3,7 +3,7 @@
   "include": [],
   "references": [
     {
-      "path": "./packages/settings-view"
+      "path": "./packages/settings-worker"
     },
     {
       "path": "./packages/build"

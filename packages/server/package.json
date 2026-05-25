@@ -1,5 +1,5 @@
 {
-  "name": "@lvce-editor/settings-view-server",
+  "name": "@lvce-editor/settings-worker-server",
   "version": "0.0.0-dev",
   "main": "index.js",
   "type": "module",

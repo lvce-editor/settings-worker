@@ -5,7 +5,7 @@ export const threshold = 580_000
 
 export const instantiations = 2000
 
-export const instantiationsPath = join(root, 'packages', 'settings-view')
+export const instantiationsPath = join(root, 'packages', 'settings-worker')
 
 export const workerPath = join(root, '.tmp/dist/dist/settingsViewWorkerMain.js')
 
