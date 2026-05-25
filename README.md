@@ -1,6 +1,6 @@
-# Settings View
+# Settings Worker
 
-WebWorker for the Settings View functionality in Lvce Editor.
+WebWorker for the Settings Worker functionality in Lvce Editor.
 
 ## Contributing
 

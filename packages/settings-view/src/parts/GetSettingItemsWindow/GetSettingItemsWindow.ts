@@ -11,7 +11,7 @@ export const getSettingItemsWindow = (): readonly SettingItem[] => {
       heading: SettingStrings.windowTitle(),
       id: 'windowTitle',
       type: SettingItemType.String,
-      value: 'Settings View',
+      value: 'Settings Worker',
     },
     {
       category: InputName.WindowTab,
