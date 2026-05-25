@@ -1,4 +1,4 @@
-import { cp, readFile, writeFile } from 'node:fs/promises'
+import { cp, readFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { root } from './root.ts'
@@ -22,17 +22,20 @@ export const getRemoteUrl = (path: string): string => {
   return `/remote/${url}`
 }
 
+// @ts-ignore
 const content = await readFile(rendererWorkerPath, 'utf8')
 const workerPath = join(root, '.tmp/dist/dist/settingsWorkerMain.js')
 const remoteUrl = getRemoteUrl(workerPath)
 
+// @ts-ignore
 const occurrence = `// const settingsWorkerUrl = \`\${assetDir}/packages/settings-worker/dist/settingsWorkerMain.js\`
 const settingsWorkerUrl = \`${remoteUrl}\``
+// @ts-ignore
 const replacement = `const settingsWorkerUrl = \`\${assetDir}/packages/settings-worker/dist/settingsWorkerMain.js\``
 // if (!content.includes(occurrence)) {
 //   throw new Error('occurrence not found')
 // }
-const newContent = content.replace(occurrence, replacement)
-await writeFile(rendererWorkerPath, newContent)
+// const newContent = content.replace(occurrence, replacement)
+// await writeFile(rendererWorkerPath, newContent)
 
 await cp(join(root, 'dist'), join(root, '.tmp', 'static'), { recursive: true })
