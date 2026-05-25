@@ -1,9 +1,9 @@
 import type { Test, TestApi } from '@lvce-editor/test-with-playwright'
 
 interface BooleanSettingFixtures {
+  readonly expect: TestApi['expect']
   readonly Locator: TestApi['Locator']
   readonly SettingsView: TestApi['SettingsView']
-  readonly expect: TestApi['expect']
 }
 
 export const assertBooleanSetting = async (
