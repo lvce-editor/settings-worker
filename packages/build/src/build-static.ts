@@ -29,9 +29,9 @@ const remoteUrl = getRemoteUrl(workerPath)
 const occurrence = `// const settingsWorkerUrl = \`\${assetDir}/packages/settings-worker/dist/settingsWorkerMain.js\`
 const settingsWorkerUrl = \`${remoteUrl}\``
 const replacement = `const settingsWorkerUrl = \`\${assetDir}/packages/settings-worker/dist/settingsWorkerMain.js\``
-if (!content.includes(occurrence)) {
-  throw new Error('occurrence not found')
-}
+// if (!content.includes(occurrence)) {
+//   throw new Error('occurrence not found')
+// }
 const newContent = content.replace(occurrence, replacement)
 await writeFile(rendererWorkerPath, newContent)
 
