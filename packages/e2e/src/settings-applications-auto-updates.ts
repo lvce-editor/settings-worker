@@ -1,8 +1,20 @@
 import type { Test } from '@lvce-editor/test-with-playwright'
-import { assertBooleanSetting } from './assertBooleanSetting.js'
 
 export const name = 'settings.applications-auto-updates'
 
 export const test: Test = async ({ expect, Locator, SettingsView }) => {
-  await assertBooleanSetting(expect, Locator, SettingsView, 'auto updates', 'Auto Updates', true)
+  await SettingsView.show()
+  await SettingsView.selectTab('applications')
+  await SettingsView.handleInput('auto updates')
+
+  const settingsItems = Locator('.SettingsItem')
+  await expect(settingsItems).toHaveCount(1)
+
+  const heading = settingsItems.locator('h3')
+  await expect(heading).toHaveText('Auto Updates')
+
+  const checkbox = settingsItems.locator('input[type="checkbox"]')
+  await expect(checkbox).toBeVisible()
+  await expect(checkbox).toHaveAttribute('type', 'checkbox')
+  await expect(checkbox).toHaveJSProperty('checked', true)
 }
