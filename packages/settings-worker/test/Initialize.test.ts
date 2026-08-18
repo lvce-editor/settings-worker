@@ -1,4 +1,5 @@
 import { afterEach, expect, jest, test } from '@jest/globals'
+import { ExtensionManagementWorker } from '@lvce-editor/rpc-registry'
 import { getSettingItems } from '../src/parts/GetSettingItems/GetSettingItems.ts'
 import { initialize } from '../src/parts/Initialize/Initialize.ts'
 
@@ -7,6 +8,22 @@ afterEach(() => {
 })
 
 test('initialize loads settings contributions', async () => {
+  using extensionManagementMockRpc = ExtensionManagementWorker.registerMockRpc({
+    'Extensions.getAllExtensions'() {
+      return [
+        {
+          configuration: {
+            'test.enabled': {
+              default: true,
+              description: 'Enable the test extension.',
+              type: 'boolean',
+            },
+          },
+          name: 'Test Extension',
+        },
+      ]
+    },
+  })
   const fetchSpy = jest.spyOn(globalThis, 'fetch')
   fetchSpy
     .mockResolvedValueOnce(Response.json(['editor-worker.json', 'explorer-view.json']))
@@ -44,6 +61,8 @@ test('initialize loads settings contributions', async () => {
   expect(fetchSpy).toHaveBeenNthCalledWith(3, 'https://example.com/builtin-settings/explorer-view.json')
   const items = await getSettingItems()
   expect(items.slice(0, 2).map((item) => item.id)).toEqual(['editor.fontSize', 'explorer.useChevrons'])
+  expect(items.some((item) => item.id === 'test.enabled')).toBe(true)
+  expect(extensionManagementMockRpc.invocations).toEqual([['Extensions.getAllExtensions', '', 0]])
   expect(items[0].validate?.(9)).toBe('editor.fontSize must be at least 10')
   expect(items[0].validate?.(101)).toBe('editor.fontSize must not be greater than 100')
 })
