@@ -7,6 +7,7 @@ import { validateSetting } from '../ValidateSetting/ValidateSetting.ts'
 import { validateSettings } from '../ValidateSettings/ValidateSettings.ts'
 
 export const commandMap = {
+  'HandleMessagePort.handleMessagePort': handleMessagePort,
   'Initialize.initialize': Initialize.initialize,
   'SettingsWorker.getSettingsItems': getSettingItems,
   'SettingsWorker.getSettingsItems2': getSettingItems2,

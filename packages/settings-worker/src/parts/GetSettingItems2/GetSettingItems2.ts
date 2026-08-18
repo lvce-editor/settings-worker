@@ -16,7 +16,7 @@ const adjustValidation = (items: readonly SettingItem[]): readonly SettingItemNo
   return result
 }
 
-export const getSettingItems2 = async (): Promise<readonly SettingItem[]> => {
+export const getSettingItems2 = async (): Promise<readonly SettingItemNoValidate[]> => {
   const raw = await getSettingItems()
   const result = adjustValidation(raw)
   return result
