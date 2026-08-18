@@ -6,6 +6,7 @@ test('getTabs should return the correct array of tab objects', () => {
 
   expect(result).toEqual([
     { id: 'text-editor', label: 'Text Editor', selected: true },
+    { id: 'explorer', label: 'Explorer', selected: false },
     { id: 'workbench', label: 'Workbench', selected: false },
     { id: 'window', label: 'Window', selected: false },
     { id: 'features', label: 'Features', selected: false },
@@ -19,7 +20,7 @@ test('getTabs should return readonly array', () => {
   const result = getTabs()
 
   expect(result).toBeInstanceOf(Array)
-  expect(result).toHaveLength(7)
+  expect(result).toHaveLength(8)
 })
 
 test('getTabs should have first tab selected', () => {

@@ -12,10 +12,7 @@ export default defineConfig([
     },
   },
   {
-    files: [
-      'packages/settings-worker/src/parts/GetSettingItemsEditor/GetSettingItemsEditor.ts',
-      'packages/settings-worker/src/parts/GetSettingItemsWindow/GetSettingItemsWindow.ts',
-    ],
+    files: ['packages/settings-worker/src/parts/GetSettingItemsWindow/GetSettingItemsWindow.ts'],
     rules: {
       'virtual-dom/no-object-attribute-values': 'off',
     },

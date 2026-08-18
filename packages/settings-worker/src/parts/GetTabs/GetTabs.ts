@@ -9,6 +9,11 @@ export const getTabs = (): readonly Tab[] => {
       selected: true,
     },
     {
+      id: InputName.ExplorerTab,
+      label: 'Explorer',
+      selected: false,
+    },
+    {
       id: InputName.WorkbenchTab,
       label: 'Workbench',
       selected: false,
