@@ -8,6 +8,8 @@ export interface SettingItem {
   readonly description: string
   readonly heading: string
   readonly id: string
+  readonly maximum?: number
+  readonly minimum?: number
   readonly options?: readonly SettingItemOption[]
   readonly type: number
   readonly validate?: (value: any) => string // TODO add defaultValue property

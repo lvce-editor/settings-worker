@@ -1,6 +1,7 @@
 export const ApplicationsTab = 'applications'
 export const Clear = 'Clear'
 export const ExtensionsTab = 'extensions'
+export const ExplorerTab = 'explorer'
 export const Filter = 'Filter'
 export const FeaturesTab = 'features'
 export const SecurityTab = 'security'
