@@ -5,9 +5,11 @@ import { getSettingItemsFeatures } from '../GetSettingItemsFeatures/GetSettingIt
 import { getSettingItemsSecurity } from '../GetSettingItemsSecurity/GetSettingItemsSecurity.ts'
 import { getSettingItemsWindow } from '../GetSettingItemsWindow/GetSettingItemsWindow.ts'
 import { getSettingItemsWorkbench } from '../GetSettingItemsWorkbench/GetSettingItemsWorkbench.ts'
+import { loadExtensionSettingItems } from '../LoadExtensionSettingItems/LoadExtensionSettingItems.ts'
 import * as SettingsContributions from '../SettingsContributions/SettingsContributions.ts'
 
 export const getSettingItems = async (): Promise<readonly SettingItem[]> => {
+  const extensionSettingItems = await loadExtensionSettingItems()
   return [
     ...SettingsContributions.get(),
     ...getSettingItemsWorkbench(),
@@ -16,5 +18,6 @@ export const getSettingItems = async (): Promise<readonly SettingItem[]> => {
     ...getSettingItemsApplications(),
     ...getSettingItemsSecurity(),
     ...getSettingItemsExtensions(),
+    ...extensionSettingItems,
   ]
 }
