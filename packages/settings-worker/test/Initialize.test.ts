@@ -37,13 +37,22 @@ test('initialize loads settings contributions', async () => {
       ]),
     )
 
-  await initialize('https://example.com/builtin-settings/index.json')
+  await initialize('https://example.com/builtin-settings/index.json', async () => [
+    {
+      category: 'extensions',
+      description: 'Enable the test extension.',
+      heading: 'Test Extension: Enabled',
+      id: 'test.enabled',
+      type: 3,
+      value: true,
+    },
+  ])
 
   expect(fetchSpy).toHaveBeenNthCalledWith(1, 'https://example.com/builtin-settings/index.json')
   expect(fetchSpy).toHaveBeenNthCalledWith(2, 'https://example.com/builtin-settings/editor-worker.json')
   expect(fetchSpy).toHaveBeenNthCalledWith(3, 'https://example.com/builtin-settings/explorer-view.json')
   const items = await getSettingItems()
-  expect(items.slice(0, 2).map((item) => item.id)).toEqual(['editor.fontSize', 'explorer.useChevrons'])
+  expect(items.slice(0, 3).map((item) => item.id)).toEqual(['editor.fontSize', 'explorer.useChevrons', 'test.enabled'])
   expect(items[0].validate?.(9)).toBe('editor.fontSize must be at least 10')
   expect(items[0].validate?.(101)).toBe('editor.fontSize must not be greater than 100')
 })
@@ -64,5 +73,5 @@ test('initialize rejects duplicate setting ids', async () => {
     .mockResolvedValueOnce(Response.json(['one.json', 'two.json']))
     .mockImplementation(async () => Response.json(contribution))
 
-  await expect(initialize('https://example.com/index.json')).rejects.toThrow('Duplicate setting contribution: test.setting')
+  await expect(initialize('https://example.com/index.json', async () => [])).rejects.toThrow('Duplicate setting contribution: test.setting')
 })

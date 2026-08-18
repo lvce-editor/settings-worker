@@ -1,3 +1,10 @@
 {
-  "name": "test"
+  "name": "Test Extension",
+  "configuration": {
+    "testExtension.enabled": {
+      "type": "boolean",
+      "default": true,
+      "description": "Enable the test extension."
+    }
+  }
 }
