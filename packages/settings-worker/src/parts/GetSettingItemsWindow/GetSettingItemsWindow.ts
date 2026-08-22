@@ -21,23 +21,5 @@ export const getSettingItemsWindow = (): readonly SettingItem[] => {
       type: SettingItemType.String,
       value: '1024x768',
     },
-    {
-      category: InputName.WindowTab,
-      description: SettingStrings.windowTitleBarStyleDescription(),
-      heading: SettingStrings.windowTitleBarStyle(),
-      id: 'window.titleBarStyle',
-      options: [
-        {
-          id: 'native',
-          label: 'native',
-        },
-        {
-          id: 'custom',
-          label: 'custom',
-        },
-      ],
-      type: SettingItemType.Enum,
-      value: 'custom', // TODO get it from settings
-    },
   ]
 }
