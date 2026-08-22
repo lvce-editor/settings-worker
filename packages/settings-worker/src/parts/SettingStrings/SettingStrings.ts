@@ -153,16 +153,8 @@ export const windowSize = (): string => {
   return I18NString.i18nString(UiStrings.WindowSize)
 }
 
-export const windowTitleBarStyle = (): string => {
-  return I18NString.i18nString(UiStrings.WindowTitleBarStyle)
-}
-
 export const windowSizeDescription = (): string => {
   return I18NString.i18nString(UiStrings.WindowSizeDescription)
-}
-
-export const windowTitleBarStyleDescription = (): string => {
-  return I18NString.i18nString(UiStrings.WindowTitleBarStyleDescription)
 }
 
 export const windowTitle = (): string => {

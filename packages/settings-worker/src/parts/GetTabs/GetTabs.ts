@@ -14,6 +14,16 @@ export const getTabs = (): readonly Tab[] => {
       selected: false,
     },
     {
+      id: InputName.SearchTab,
+      label: 'Search',
+      selected: false,
+    },
+    {
+      id: InputName.SourceControlTab,
+      label: 'Source Control',
+      selected: false,
+    },
+    {
       id: InputName.WorkbenchTab,
       label: 'Workbench',
       selected: false,
