@@ -1,5 +1,17 @@
 import type { SettingItem, SettingItemOption } from '../SettingItem/SettingItem.ts'
 import type { SettingsContribution } from '../SettingsContribution/SettingsContribution.ts'
+import * as SettingItemType from '../SettingItemType/SettingItemType.ts'
+
+const settingTypes: Readonly<Record<string, number>> = {
+  array: SettingItemType.Array,
+  boolean: SettingItemType.Boolean,
+  color: SettingItemType.Color,
+  enum: SettingItemType.Enum,
+  none: SettingItemType.None,
+  number: SettingItemType.Number,
+  string: SettingItemType.String,
+  url: SettingItemType.Url,
+}
 
 const isRecord = (value: unknown): value is Record<string, unknown> => {
   return typeof value === 'object' && value !== null && !Array.isArray(value)
@@ -33,15 +45,23 @@ const parseOptionalNumber = (value: unknown, property: string, id: string): numb
   return value
 }
 
+const parseType = (value: unknown, id: string): number => {
+  if (typeof value !== 'string') {
+    throw new TypeError(`setting ${id} type must be a string`)
+  }
+  const type = settingTypes[value]
+  if (type === undefined) {
+    throw new TypeError(`setting ${id} has unknown type ${value}`)
+  }
+  return type
+}
+
 const validateRequiredProperties = (value: Record<string, unknown>): void => {
   const id = typeof value.id === 'string' ? value.id : '<unknown>'
   for (const property of ['category', 'description', 'heading', 'id']) {
     if (typeof value[property] !== 'string') {
       throw new TypeError(`setting ${id} ${property} must be a string`)
     }
-  }
-  if (typeof value.type !== 'number') {
-    throw new TypeError(`setting ${id} type must be a number`)
   }
   if (!Object.hasOwn(value, 'value')) {
     throw new TypeError(`setting ${id} must have a value`)
@@ -67,7 +87,7 @@ const parseItem = (value: unknown): SettingsContribution => {
     maximum,
     minimum,
     options: parseOptions(value.options, id),
-    type: value.type as number,
+    type: parseType(value.type, id),
     value: value.value,
   }
 }
