@@ -2,16 +2,16 @@ import type { SettingItem, SettingItemOption } from '../SettingItem/SettingItem.
 import type { SettingsContribution } from '../SettingsContribution/SettingsContribution.ts'
 import * as SettingItemType from '../SettingItemType/SettingItemType.ts'
 
-const settingTypes: Readonly<Record<string, number>> = {
-  array: SettingItemType.Array,
-  boolean: SettingItemType.Boolean,
-  color: SettingItemType.Color,
-  enum: SettingItemType.Enum,
-  none: SettingItemType.None,
-  number: SettingItemType.Number,
-  string: SettingItemType.String,
-  url: SettingItemType.Url,
-}
+const settingTypes: ReadonlyMap<string, number> = new Map([
+  ['array', SettingItemType.Array],
+  ['boolean', SettingItemType.Boolean],
+  ['color', SettingItemType.Color],
+  ['enum', SettingItemType.Enum],
+  ['none', SettingItemType.None],
+  ['number', SettingItemType.Number],
+  ['string', SettingItemType.String],
+  ['url', SettingItemType.Url],
+])
 
 const isRecord = (value: unknown): value is Record<string, unknown> => {
   return typeof value === 'object' && value !== null && !Array.isArray(value)
@@ -49,7 +49,7 @@ const parseType = (value: unknown, id: string): number => {
   if (typeof value !== 'string') {
     throw new TypeError(`setting ${id} type must be a string`)
   }
-  const type = settingTypes[value]
+  const type = settingTypes.get(value)
   if (type === undefined) {
     throw new TypeError(`setting ${id} has unknown type ${value}`)
   }
