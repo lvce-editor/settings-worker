@@ -54,3 +54,16 @@ test('parseSettingsContribution rejects invalid ranges', () => {
     ]),
   ).toThrow('minimum must not be greater than maximum')
 })
+
+test('parseSettingsContribution preserves object settings alongside other contributions', () => {
+  const remoteHosts = {
+    category: 'git',
+    description: 'Maps remote hosts to websites',
+    heading: 'Remote Hosts',
+    id: 'git.remoteHosts',
+    type: 'object',
+    value: { 'github.com': 'https://github.com' },
+  }
+  const settings = parseSettingsContribution([remoteHosts, createSetting('number')])
+  expect(settings).toEqual([{ ...remoteHosts, type: SettingItemType.Object }, { ...createSetting('number'), type: SettingItemType.Number }])
+})

@@ -9,6 +9,7 @@ const settingTypes: ReadonlyMap<string, number> = new Map([
   ['enum', SettingItemType.Enum],
   ['none', SettingItemType.None],
   ['number', SettingItemType.Number],
+  ['object', SettingItemType.Object],
   ['string', SettingItemType.String],
   ['url', SettingItemType.Url],
 ])
