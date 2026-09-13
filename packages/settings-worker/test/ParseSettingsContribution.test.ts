@@ -65,5 +65,8 @@ test('parseSettingsContribution preserves object settings alongside other contri
     value: { 'github.com': 'https://github.com' },
   }
   const settings = parseSettingsContribution([remoteHosts, createSetting('number')])
-  expect(settings).toEqual([{ ...remoteHosts, type: SettingItemType.Object }, { ...createSetting('number'), type: SettingItemType.Number }])
+  expect(settings).toEqual([
+    { ...remoteHosts, type: SettingItemType.Object },
+    { ...createSetting('number'), type: SettingItemType.Number },
+  ])
 })
