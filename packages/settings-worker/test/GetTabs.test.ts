@@ -15,6 +15,7 @@ test('getTabs should return the correct array of tab objects', () => {
     { id: 'applications', label: 'Applications', selected: false },
     { id: 'security', label: 'Security', selected: false },
     { id: 'extensions', label: 'Extensions', selected: false },
+    { id: 'schema-errors', label: 'Schema Errors', selected: false },
   ])
 })
 
@@ -22,7 +23,7 @@ test('getTabs should return readonly array', () => {
   const result = getTabs()
 
   expect(result).toBeInstanceOf(Array)
-  expect(result).toHaveLength(10)
+  expect(result).toHaveLength(11)
 })
 
 test('getTabs should have first tab selected', () => {

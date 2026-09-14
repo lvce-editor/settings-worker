@@ -1,4 +1,5 @@
 import type { ExtensionConfigurationProperty, ExtensionManifest } from '../ExtensionConfiguration/ExtensionConfiguration.ts'
+import type { SchemaError } from '../SchemaError/SchemaError.ts'
 import type { SettingItem, SettingItemOption } from '../SettingItem/SettingItem.ts'
 import * as InputName from '../InputName/InputName.ts'
 import * as SettingItemType from '../SettingItemType/SettingItemType.ts'
@@ -21,19 +22,21 @@ const getDefaultValue = (property: ExtensionConfigurationProperty): unknown => {
 }
 
 const getSettingType = (property: ExtensionConfigurationProperty): number => {
-  if (property.type === 'boolean') {
-    return SettingItemType.Boolean
+  switch (property.type) {
+    case 'array':
+      return SettingItemType.Array
+    case 'boolean':
+      return SettingItemType.Boolean
+    case 'integer':
+    case 'number':
+      return SettingItemType.Number
+    case 'object':
+      return SettingItemType.Object
+    case 'string':
+      return Array.isArray(property.enum) ? SettingItemType.Enum : SettingItemType.String
+    default:
+      throw new TypeError(`setting type must be one of array, boolean, integer, number, object, or string`)
   }
-  if (property.type === 'number' || property.type === 'integer') {
-    return SettingItemType.Number
-  }
-  if (property.type === 'string' && Array.isArray(property.enum)) {
-    return SettingItemType.Enum
-  }
-  if (property.type === 'string') {
-    return SettingItemType.String
-  }
-  return SettingItemType.None
 }
 
 const toTitleCase = (value: string): string => {
@@ -51,8 +54,11 @@ const getHeading = (extension: ExtensionManifest, id: string, property: Extensio
 }
 
 const getOptions = (property: ExtensionConfigurationProperty): readonly SettingItemOption[] | undefined => {
-  if (!Array.isArray(property.enum) || property.enum.some((value) => typeof value !== 'string')) {
+  if (property.enum === undefined) {
     return undefined
+  }
+  if (!Array.isArray(property.enum) || property.enum.some((value) => typeof value !== 'string')) {
+    throw new TypeError('setting enum must be an array of strings')
   }
   const descriptions = Array.isArray(property.enumDescriptions) ? property.enumDescriptions : []
   return property.enum.map((value, index) => ({
@@ -62,18 +68,21 @@ const getOptions = (property: ExtensionConfigurationProperty): readonly SettingI
 }
 
 const getOptionalNumber = (value: unknown): number | undefined => {
-  return typeof value === 'number' ? value : undefined
+  if (value === undefined) {
+    return undefined
+  }
+  if (typeof value !== 'number') {
+    throw new TypeError('setting minimum and maximum must be numbers')
+  }
+  return value
 }
 
 const toSettingItem = (extension: ExtensionManifest, id: string, value: unknown): SettingItem | undefined => {
   if (!isRecord(value)) {
-    return undefined
+    throw new TypeError(`setting ${id} must be an object`)
   }
   const property: ExtensionConfigurationProperty = value
   const type = getSettingType(property)
-  if (type === SettingItemType.None) {
-    return undefined
-  }
   return {
     category: InputName.ExtensionsTab,
     description: typeof property.description === 'string' ? property.description : '',
@@ -87,20 +96,60 @@ const toSettingItem = (extension: ExtensionManifest, id: string, value: unknown)
   }
 }
 
-const getSettingItemsForExtension = (extension: ExtensionManifest): readonly SettingItem[] => {
-  if (!isRecord(extension.configuration)) {
-    return []
+const getExtensionName = (extension: ExtensionManifest): string => {
+  return typeof extension.name === 'string' && extension.name.length > 0 ? extension.name : '<unknown extension>'
+}
+
+export const getExtensionSettingItemsWithErrors = (
+  extensions: readonly ExtensionManifest[],
+): { readonly errors: readonly SchemaError[]; readonly items: readonly SettingItem[] } => {
+  const results = extensions.map(getExtensionSettingItemsForExtension)
+  return {
+    errors: results.flatMap((result) => result.errors),
+    items: results.flatMap((result) => result.items),
   }
-  const items: SettingItem[] = []
-  for (const [id, value] of Object.entries(extension.configuration)) {
-    const item = toSettingItem(extension, id, value)
-    if (item) {
-      items.push(item)
+}
+
+const getExtensionSettingItemsForExtension = (
+  extension: ExtensionManifest,
+): { readonly errors: readonly SchemaError[]; readonly items: readonly SettingItem[] } => {
+  if (extension.configuration === undefined) {
+    return { errors: [], items: [] }
+  }
+  if (!isRecord(extension.configuration)) {
+    return {
+      errors: [{ id: '<unknown>', message: 'extension configuration must be an object', source: getExtensionName(extension) }],
+      items: [],
     }
   }
-  return items
+  const entries = Object.entries(extension.configuration)
+  const results = entries.map(([id, value]) => getExtensionSettingItem(extension, id, value))
+  return {
+    errors: results.flatMap((result) => (result.error ? [result.error] : [])),
+    items: results.flatMap((result) => (result.item ? [result.item] : [])),
+  }
+}
+
+const getExtensionSettingItem = (
+  extension: ExtensionManifest,
+  id: string,
+  value: unknown,
+): { readonly error?: SchemaError; readonly item?: SettingItem } => {
+  try {
+    const item = toSettingItem(extension, id, value)
+    if (item) {
+      return { item }
+    }
+    return {
+      error: { id, message: `setting ${id} has an unsupported or invalid type`, source: getExtensionName(extension) },
+    }
+  } catch (error) {
+    return {
+      error: { id, message: error instanceof Error ? error.message : String(error), source: getExtensionName(extension) },
+    }
+  }
 }
 
 export const getExtensionSettingItems = (extensions: readonly ExtensionManifest[]): readonly SettingItem[] => {
-  return extensions.flatMap(getSettingItemsForExtension)
+  return getExtensionSettingItemsWithErrors(extensions).items
 }

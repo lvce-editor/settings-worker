@@ -1,5 +1,6 @@
 import { afterEach, expect, jest, test } from '@jest/globals'
 import { ExtensionManagementWorker } from '@lvce-editor/rpc-registry'
+import { getSchemaErrors } from '../src/parts/GetSchemaErrors/GetSchemaErrors.ts'
 import { getSettingItems } from '../src/parts/GetSettingItems/GetSettingItems.ts'
 import { initialize } from '../src/parts/Initialize/Initialize.ts'
 
@@ -67,7 +68,7 @@ test('initialize loads settings contributions', async () => {
   expect(items[0].validate?.(101)).toBe('editor.fontSize must not be greater than 100')
 })
 
-test('initialize rejects duplicate setting ids', async () => {
+test('initialize reports duplicate setting ids without rejecting valid settings', async () => {
   const contribution = [
     {
       category: 'test',
@@ -83,5 +84,12 @@ test('initialize rejects duplicate setting ids', async () => {
     .mockResolvedValueOnce(Response.json(['one.json', 'two.json']))
     .mockImplementation(async () => Response.json(contribution))
 
-  await expect(initialize('https://example.com/index.json')).rejects.toThrow('Duplicate setting contribution: test.setting')
+  await initialize('https://example.com/index.json')
+  expect(await getSchemaErrors()).toEqual([
+    {
+      id: 'test.setting',
+      message: 'Duplicate setting contribution: test.setting',
+      source: 'builtin settings',
+    },
+  ])
 })

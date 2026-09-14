@@ -53,6 +53,11 @@ export const getTabs = (): readonly Tab[] => {
       label: 'Extensions',
       selected: false,
     },
+    {
+      id: InputName.SchemaErrorsTab,
+      label: 'Schema Errors',
+      selected: false,
+    },
   ]
   return tabs
 }

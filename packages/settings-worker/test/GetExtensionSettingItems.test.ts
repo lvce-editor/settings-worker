@@ -85,6 +85,7 @@ test('uses safe defaults and ignores malformed or unsupported entries', () => {
   expect(result.map(({ heading, id, value }) => ({ heading, id, value }))).toEqual([
     { heading: 'Boolean', id: 'test.boolean', value: false },
     { heading: 'Number', id: 'test.number', value: 0 },
+    { heading: 'Object', id: 'test.object', value: '' },
     { heading: 'Custom Title', id: 'test.string', value: '' },
   ])
 })
