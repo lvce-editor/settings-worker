@@ -1,3 +1,4 @@
+import type { SchemaError } from '../SchemaError/SchemaError.ts'
 import type { SettingItem, SettingItemOption } from '../SettingItem/SettingItem.ts'
 import type { SettingsContribution } from '../SettingsContribution/SettingsContribution.ts'
 import * as SettingItemType from '../SettingItemType/SettingItemType.ts'
@@ -122,4 +123,35 @@ export const parseSettingsContribution = (value: unknown): readonly SettingItem[
       validate: createValidator(item),
     }
   })
+}
+
+const getSettingId = (value: unknown): string => {
+  return isRecord(value) && typeof value.id === 'string' ? value.id : '<unknown>'
+}
+
+export const parseSettingsContributionWithErrors = (
+  value: unknown,
+  source: string,
+): { readonly errors: readonly SchemaError[]; readonly items: readonly SettingItem[] } => {
+  if (!Array.isArray(value)) {
+    return {
+      errors: [{ id: '<unknown>', message: 'settings contribution must be an array', source }],
+      items: [],
+    }
+  }
+  const items: SettingItem[] = []
+  const errors: SchemaError[] = []
+  for (const entry of value) {
+    try {
+      const [item] = parseSettingsContribution([entry])
+      items.push(item)
+    } catch (error) {
+      errors.push({
+        id: getSettingId(entry),
+        message: error instanceof Error ? error.message : String(error),
+        source,
+      })
+    }
+  }
+  return { errors, items }
 }
