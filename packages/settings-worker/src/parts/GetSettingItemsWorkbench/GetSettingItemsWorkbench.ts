@@ -7,6 +7,14 @@ export const getSettingItemsWorkbench = (): readonly SettingItem[] => {
   return [
     {
       category: InputName.WorkbenchTab,
+      description: SettingStrings.useTogglesDescription(),
+      heading: SettingStrings.useToggles(),
+      id: 'settings.useToggles',
+      type: SettingItemType.Boolean,
+      value: true,
+    },
+    {
+      category: InputName.WorkbenchTab,
       description: SettingStrings.themeDescription(),
       heading: SettingStrings.theme(),
       id: 'theme',
