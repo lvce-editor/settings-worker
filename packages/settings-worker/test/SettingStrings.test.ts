@@ -66,6 +66,16 @@ test('themeDescription returns expected i18n string', () => {
   expect(result).toBe('The color theme of the workbench')
 })
 
+test('useToggles returns expected i18n string', () => {
+  const result = SettingStrings.useToggles()
+  expect(result).toBe('Use Toggles')
+})
+
+test('useTogglesDescription returns expected i18n string', () => {
+  const result = SettingStrings.useTogglesDescription()
+  expect(result).toBe('Render boolean settings as toggles instead of checkboxes')
+})
+
 test('sidebarPosition returns expected i18n string', () => {
   const result = SettingStrings.sidebarPosition()
   expect(result).toBe('Sidebar Position')

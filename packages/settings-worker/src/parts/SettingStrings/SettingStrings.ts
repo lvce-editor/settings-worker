@@ -141,6 +141,14 @@ export const themeDescription = (): string => {
   return I18NString.i18nString(UiStrings.ThemeDescription)
 }
 
+export const useToggles = (): string => {
+  return I18NString.i18nString(UiStrings.UseToggles)
+}
+
+export const useTogglesDescription = (): string => {
+  return I18NString.i18nString(UiStrings.UseTogglesDescription)
+}
+
 export const twoFactorAuth = (): string => {
   return I18NString.i18nString(UiStrings.TwoFactorAuth)
 }
