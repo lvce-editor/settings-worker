@@ -141,6 +141,14 @@ export const themeDescription = (): string => {
   return I18NString.i18nString(UiStrings.ThemeDescription)
 }
 
+export const modernUi = (): string => {
+  return I18NString.i18nString(UiStrings.ModernUi)
+}
+
+export const modernUiDescription = (): string => {
+  return I18NString.i18nString(UiStrings.ModernUiDescription)
+}
+
 export const useToggles = (): string => {
   return I18NString.i18nString(UiStrings.UseToggles)
 }

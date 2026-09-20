@@ -23,6 +23,14 @@ export const getSettingItemsWorkbench = (): readonly SettingItem[] => {
     },
     {
       category: InputName.WorkbenchTab,
+      description: SettingStrings.modernUiDescription(),
+      heading: SettingStrings.modernUi(),
+      id: 'workbench.experimental.modernUI',
+      type: SettingItemType.Boolean,
+      value: false,
+    },
+    {
+      category: InputName.WorkbenchTab,
       description: SettingStrings.sidebarPositionDescription(),
       heading: SettingStrings.sidebarPosition(),
       id: 'sidebarPosition',
