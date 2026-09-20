@@ -66,6 +66,16 @@ test('themeDescription returns expected i18n string', () => {
   expect(result).toBe('The color theme of the workbench')
 })
 
+test('modernUi returns expected i18n string', () => {
+  const result = SettingStrings.modernUi()
+  expect(result).toBe('Modern UI')
+})
+
+test('modernUiDescription returns expected i18n string', () => {
+  const result = SettingStrings.modernUiDescription()
+  expect(result).toBe('Use the modern workbench appearance')
+})
+
 test('useToggles returns expected i18n string', () => {
   const result = SettingStrings.useToggles()
   expect(result).toBe('Use Toggles')
