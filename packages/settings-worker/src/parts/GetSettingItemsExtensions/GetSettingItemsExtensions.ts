@@ -21,5 +21,13 @@ export const getSettingItemsExtensions = (): readonly SettingItem[] => {
       type: SettingItemType.Boolean,
       value: 'true',
     },
+    {
+      category: InputName.ExtensionsTab,
+      description: SettingStrings.extensionContentsDescription(),
+      heading: SettingStrings.extensionContents(),
+      id: 'extensionsShowContents',
+      type: SettingItemType.Boolean,
+      value: 'false',
+    },
   ]
 }
