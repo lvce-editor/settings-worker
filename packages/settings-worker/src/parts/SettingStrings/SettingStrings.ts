@@ -53,6 +53,14 @@ export const extensionRecommendationsDescription = (): string => {
   return I18NString.i18nString(UiStrings.ExtensionRecommendationsDescription)
 }
 
+export const extensionContents = (): string => {
+  return I18NString.i18nString(UiStrings.ExtensionContents)
+}
+
+export const extensionContentsDescription = (): string => {
+  return I18NString.i18nString(UiStrings.ExtensionContentsDescription)
+}
+
 export const fileEncryption = (): string => {
   return I18NString.i18nString(UiStrings.FileEncryption)
 }
