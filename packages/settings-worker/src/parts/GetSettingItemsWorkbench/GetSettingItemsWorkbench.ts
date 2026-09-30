@@ -17,9 +17,9 @@ export const getSettingItemsWorkbench = (): readonly SettingItem[] => {
       category: InputName.WorkbenchTab,
       description: SettingStrings.themeDescription(),
       heading: SettingStrings.theme(),
-      id: 'theme',
-      type: SettingItemType.String,
-      value: 'Dark',
+      id: 'workbench.colorTheme',
+      type: SettingItemType.Enum,
+      value: 'slime',
     },
     {
       category: InputName.WorkbenchTab,

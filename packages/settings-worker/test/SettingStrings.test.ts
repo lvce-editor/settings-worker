@@ -58,7 +58,7 @@ test('fontFamilyDescription returns expected i18n string', () => {
 
 test('theme returns expected i18n string', () => {
   const result = SettingStrings.theme()
-  expect(result).toBe('Theme')
+  expect(result).toBe('Color Theme')
 })
 
 test('themeDescription returns expected i18n string', () => {

@@ -26,3 +26,16 @@ test('getSettingItemsWorkbench includes modern ui disabled by default', () => {
     value: false,
   })
 })
+
+test('getSettingItemsWorkbench includes color theme as an enum setting', () => {
+  const result = getSettingItemsWorkbench()
+  const setting = result.find((item) => item.id === 'workbench.colorTheme')
+
+  expect(setting).toMatchObject({
+    category: 'workbench',
+    description: 'The color theme of the workbench',
+    heading: 'Color Theme',
+    type: 1,
+    value: 'slime',
+  })
+})
