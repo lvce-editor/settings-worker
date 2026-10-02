@@ -6,11 +6,11 @@ test('offers default and reduced application memory usage modes', () => {
 
   expect(setting).toMatchObject({
     id: 'application.memoryUsage',
-    type: 1,
-    value: 'default',
     options: [
       { id: 'default', label: 'default' },
       { id: 'reduce', label: 'reduce' },
     ],
+    type: 1,
+    value: 'default',
   })
 })
