@@ -29,5 +29,17 @@ export const getSettingItemsApplications = (): readonly SettingItem[] => {
       type: SettingItemType.Boolean,
       value: 'true',
     },
+    {
+      category: InputName.ApplicationsTab,
+      description: 'Reduce memory usage by changing Chromium startup options. Restart the application for changes to take effect.',
+      heading: 'Memory Usage',
+      id: 'application.memoryUsage',
+      options: [
+        { id: 'default', label: 'default' },
+        { id: 'reduce', label: 'reduce' },
+      ],
+      type: SettingItemType.Enum,
+      value: 'default',
+    },
   ]
 }
