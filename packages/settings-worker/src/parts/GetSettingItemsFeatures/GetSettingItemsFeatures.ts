@@ -21,5 +21,17 @@ export const getSettingItemsFeatures = (): readonly SettingItem[] => {
       type: SettingItemType.Boolean,
       value: 'false',
     },
+    {
+      category: InputName.TextEditorTab,
+      description: SettingStrings.selectedTextOccurrenceMatchingDescription(),
+      heading: SettingStrings.selectedTextOccurrenceMatching(),
+      id: 'editor.selectedTextOccurrenceMatching',
+      options: [
+        { id: 'caseSensitive', label: 'caseSensitive' },
+        { id: 'caseInsensitive', label: 'caseInsensitive' },
+      ],
+      type: SettingItemType.Enum,
+      value: 'caseSensitive',
+    },
   ]
 }

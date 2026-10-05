@@ -117,6 +117,14 @@ export const searchSettings = (): string => {
   return I18NString.i18nString(UiStrings.SearchSettings)
 }
 
+export const selectedTextOccurrenceMatching = (): string => {
+  return I18NString.i18nString(UiStrings.SelectedTextOccurrenceMatching)
+}
+
+export const selectedTextOccurrenceMatchingDescription = (): string => {
+  return I18NString.i18nString(UiStrings.SelectedTextOccurrenceMatchingDescription)
+}
+
 export const settingsContent = (): string => {
   return I18NString.i18nString(UiStrings.SettingsContent)
 }
