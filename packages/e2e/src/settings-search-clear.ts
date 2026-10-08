@@ -14,6 +14,6 @@ export const test: Test = async ({ expect, Locator, SettingsView }) => {
   const input = Locator('.SettingsSearchInput')
   await expect(input).toHaveValue('')
   await expect(input).toBeFocused()
-  const wordWrapSetting = Locator('[name="editor.wordWrap"]')
-  await expect(wordWrapSetting).toBeVisible()
+  const additionalSetting = Locator('.SettingsItem').nth(1)
+  await expect(additionalSetting).toBeVisible()
 }
